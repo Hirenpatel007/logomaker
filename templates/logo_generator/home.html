@@ -1,0 +1,593 @@
+{% extends 'logo_generator/base.html' %}
+{% load static %}
+
+{% block title %}AI LogoMaker Pro - Unlimited Free Logo Generation with Stable Diffusion{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="floating-elements">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <div class="hero-content">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-text fade-in">
+                        <h1 class="display-1 hero-title">
+                            World's Most Advanced
+                            <span class="text-gradient">AI Logo Generator</span>
+                        </h1>
+                        
+                        <p class="lead-text hero-subtitle">
+                            Create stunning, professional logos with our revolutionary 
+                            <strong>Stable Diffusion AI</strong> technology. 
+                            <span class="highlight">Completely free, unlimited generation</span> 
+                            - no API keys required!
+                        </p>
+                        
+                        <div class="hero-features mb-4">
+                            <div class="feature-badge">🚀 Stable Diffusion AI</div>
+                            <div class="feature-badge">⚡ Unlimited Free</div>
+                            <div class="feature-badge">🎨 Professional Quality</div>
+                            <div class="feature-badge">📱 Mobile Optimized</div>
+                        </div>
+                        
+                        <div class="hero-buttons">
+                            <a href="{% url 'generate_logo' %}" class="btn-primary-custom">
+                                <i class="btn-icon">✨</i>
+                                <span>Generate Logo Now</span>
+                            </a>
+                            <a href="{% url 'gallery' %}" class="btn-secondary-custom">
+                                <i class="btn-icon">🖼️</i>
+                                <span>View Gallery</span>
+                            </a>
+                        </div>
+                        
+                        <div class="hero-stats mt-4">
+                            <div class="stat-item">
+                                <span class="stat-number counter" data-target="50000">0</span>
+                                <span class="stat-label">Logos Generated</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Free AI</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">₹50</span>
+                                <span class="stat-label">Only</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="hero-visual fade-in">
+                        <div class="ai-demo-container">
+                            <div class="demo-screen glass-effect">
+                                <div class="demo-header">
+                                    <div class="demo-status">
+                                        <div class="status-dot"></div>
+                                        <div class="status-dot"></div>
+                                        <div class="status-dot"></div>
+                                    </div>
+                                    <div class="demo-title">Stable Diffusion AI</div>
+                                </div>
+                                
+                                <div class="demo-content">
+                                    <div class="ai-process">
+                                        <div class="process-step active">
+                                            <div class="step-icon">🎯</div>
+                                            <div class="step-text">Analyzing Brand...</div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-icon">🧠</div>
+                                            <div class="step-text">AI Processing...</div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-icon">✨</div>
+                                            <div class="step-text">Creating Magic...</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="generated-preview">
+                                        <div class="logo-preview">Logo 1</div>
+                                        <div class="logo-preview">Logo 2</div>
+                                        <div class="logo-preview">Logo 3</div>
+                                        <div class="logo-preview">Logo 4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item hover-lift">
+                <div class="stat-number counter" data-target="50000">0</div>
+                <div class="stat-label">Logos Created</div>
+            </div>
+            <div class="stat-item hover-lift">
+                <div class="stat-number counter" data-target="15">0</div>
+                <div class="stat-label">AI Styles</div>
+            </div>
+            <div class="stat-item hover-lift">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free AI</div>
+            </div>
+            <div class="stat-item hover-lift">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Available</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-2">Revolutionary AI Technology</h2>
+            <p class="lead-text">
+                Powered by <strong>Stable Diffusion AI</strong> - The world's most advanced 
+                image generation technology, completely free and unlimited!
+            </p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">🧠</i>
+                </div>
+                <h3 class="feature-title">Stable Diffusion AI</h3>
+                <p class="feature-description">
+                    Revolutionary AI technology that understands your brand and creates 
+                    professional logos with human-like creativity and precision.
+                </p>
+                <ul class="feature-list">
+                    <li>No API keys required</li>
+                    <li>Unlimited free generation</li>
+                    <li>Professional quality output</li>
+                    <li>Lightning-fast processing</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">⚡</i>
+                </div>
+                <h3 class="feature-title">Unlimited & Free</h3>
+                <p class="feature-description">
+                    Unlike other platforms that charge per generation or require expensive 
+                    subscriptions, our AI is completely free with unlimited usage.
+                </p>
+                <ul class="feature-list">
+                    <li>Zero API costs</li>
+                    <li>No generation limits</li>
+                    <li>No hidden fees</li>
+                    <li>Always free AI processing</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">🎨</i>
+                </div>
+                <h3 class="feature-title">Professional Quality</h3>
+                <p class="feature-description">
+                    High-resolution logos suitable for all commercial use. From business 
+                    cards to billboards, our AI creates scalable, professional designs.
+                </p>
+                <ul class="feature-list">
+                    <li>4K resolution output</li>
+                    <li>Vector-style quality</li>
+                    <li>Commercial license included</li>
+                    <li>Print-ready formats</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">📱</i>
+                </div>
+                <h3 class="feature-title">Mobile Optimized</h3>
+                <p class="feature-description">
+                    Perfect mobile experience with touch-optimized interface, PWA support, 
+                    and seamless generation on any device.
+                </p>
+                <ul class="feature-list">
+                    <li>Touch-friendly interface</li>
+                    <li>Progressive Web App</li>
+                    <li>Offline capability</li>
+                    <li>Cross-platform support</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">🚀</i>
+                </div>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-description">
+                    Generate multiple logo variations in seconds. Our optimized AI 
+                    infrastructure ensures rapid processing without compromising quality.
+                </p>
+                <ul class="feature-list">
+                    <li>Sub-30 second generation</li>
+                    <li>Batch processing</li>
+                    <li>Real-time preview</li>
+                    <li>Instant download</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="icon">💎</i>
+                </div>
+                <h3 class="feature-title">Premium Features</h3>
+                <p class="feature-description">
+                    Advanced customization options, multiple file formats, and premium 
+                    features that typically cost hundreds of dollars elsewhere.
+                </p>
+                <ul class="feature-list">
+                    <li>Multiple file formats</li>
+                    <li>Advanced customization</li>
+                    <li>Brand kit creation</li>
+                    <li>Social media templates</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Demo Section -->
+<section class="ai-demo-section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-2">See AI in Action</h2>
+            <p class="lead-text">
+                Watch our Stable Diffusion AI create professional logos in real-time
+            </p>
+        </div>
+        
+        <div class="demo-container fade-in">
+            <div class="demo-header">
+                <div class="demo-status">
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                </div>
+                <div class="demo-title">🧠 Stable Diffusion AI - Live Demo</div>
+            </div>
+            
+            <div class="demo-content">
+                <div class="ai-process" id="aiProcess">
+                    <div class="process-step active">
+                        <div class="step-icon">🎯</div>
+                        <div class="step-text">Analyzing brand requirements...</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">🧠</div>
+                        <div class="step-text">AI neural networks processing...</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">🎨</div>
+                        <div class="step-text">Generating creative variations...</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">✨</div>
+                        <div class="step-text">Finalizing professional logos...</div>
+                    </div>
+                </div>
+                
+                <div class="generated-preview" id="generatedPreview">
+                    <div class="logo-preview">TechCorp</div>
+                    <div class="logo-preview">Creative Hub</div>
+                    <div class="logo-preview">Modern Co.</div>
+                    <div class="logo-preview">Innovation</div>
+                    <div class="logo-preview">Future AI</div>
+                    <div class="logo-preview">Digital Pro</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-2">Simple, Transparent Pricing</h2>
+            <p class="lead-text">
+                Professional logos at an unbeatable price. No subscriptions, no hidden fees.
+            </p>
+        </div>
+        
+        <div class="pricing-card fade-in">
+            <div class="price-badge">🌟 Most Popular</div>
+            <div class="price-amount">₹50</div>
+            <p class="price-description">Complete Logo Package</p>
+            
+            <ul class="price-features">
+                <li>5 AI-generated logo variations</li>
+                <li>High-resolution PNG files (4K)</li>
+                <li>Vector-style quality</li>
+                <li>Transparent backgrounds</li>
+                <li>Commercial usage rights</li>
+                <li>Multiple file formats</li>
+                <li>Instant download</li>
+                <li>24/7 support</li>
+                <li>Money-back guarantee</li>
+            </ul>
+            
+            <div class="pricing-footer">
+                <a href="{% url 'generate_logo' %}" class="btn-primary-custom btn-lg">
+                    <i class="btn-icon">🚀</i>
+                    <span>Start Creating Now</span>
+                </a>
+                
+                <div class="payment-info mt-3">
+                    <p class="payment-methods">
+                        <strong>Pay via UPI:</strong> 9537272403@paytm
+                    </p>
+                    <div class="upi-badges">
+                        <span class="badge-item">📱 PhonePe</span>
+                        <span class="badge-item">💳 Google Pay</span>
+                        <span class="badge-item">💰 Paytm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="display-2 text-white">Meet the Creator</h2>
+            <p class="lead-text text-white opacity-75">
+                Direct support from the mastermind behind this revolutionary AI technology
+            </p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon">👨‍💻</div>
+                <div class="contact-info">
+                    <h4>Hiren Patel</h4>
+                    <p>Creator & AI Developer</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div class="contact-info">
+                    <h4>+91 9537272403</h4>
+                    <p>WhatsApp & Call Support</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-info">
+                    <h4>Kathlal, Gujarat</h4>
+                    <p>India 🇮🇳</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">💳</div>
+                <div class="contact-info">
+                    <h4>9537272403@paytm</h4>
+                    <p>UPI Payment ID</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2 class="display-2 mb-4">Ready to Create Your Perfect Logo?</h2>
+            <p class="lead-text mb-4">
+                Join thousands of satisfied customers who chose our revolutionary AI technology
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="{% url 'generate_logo' %}" class="btn-primary-custom btn-lg me-3">
+                    <i class="btn-icon">✨</i>
+                    <span>Generate Logo Now</span>
+                </a>
+                <a href="{% url 'gallery' %}" class="btn-secondary-custom btn-lg">
+                    <i class="btn-icon">🖼️</i>
+                    <span>View Gallery</span>
+                </a>
+            </div>
+            
+            <div class="cta-guarantee mt-4">
+                <div class="guarantee-badge glass-effect">
+                    <i class="guarantee-icon">🛡️</i>
+                    <div class="guarantee-text">
+                        <strong>100% Satisfaction Guaranteed</strong>
+                        <span>Or your money back!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    const animateCounter = (counter) => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            counter.textContent = Math.floor(current).toLocaleString();
+        }, 16);
+    };
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // Animate counters when they come into view
+                const counter = entry.target.querySelector('.counter');
+                if (counter && !counter.classList.contains('animated')) {
+                    counter.classList.add('animated');
+                    animateCounter(counter);
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Observe stat items for counter animation
+    document.querySelectorAll('.stat-item').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // AI Demo Animation
+    const aiProcess = document.getElementById('aiProcess');
+    const generatedPreview = document.getElementById('generatedPreview');
+    
+    if (aiProcess && generatedPreview) {
+        const steps = aiProcess.querySelectorAll('.process-step');
+        const previews = generatedPreview.querySelectorAll('.logo-preview');
+        
+        let currentStep = 0;
+        
+        const animateAIDemo = () => {
+            // Reset all steps
+            steps.forEach(step => step.classList.remove('active'));
+            previews.forEach(preview => preview.classList.remove('show'));
+            
+            // Activate current step
+            if (steps[currentStep]) {
+                steps[currentStep].classList.add('active');
+            }
+            
+            // Show previews on final step
+            if (currentStep === steps.length - 1) {
+                previews.forEach((preview, index) => {
+                    setTimeout(() => {
+                        preview.classList.add('show');
+                    }, index * 200);
+                });
+            }
+            
+            currentStep = (currentStep + 1) % (steps.length + 1);
+        };
+        
+        // Start AI demo animation
+        setInterval(animateAIDemo, 2500);
+        animateAIDemo(); // Initial call
+    }
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('mainNavbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+    
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Feature card hover effects
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Loading overlay functions
+    window.showLoading = function(message = 'AI is working...') {
+        const overlay = document.getElementById('loadingOverlay');
+        const text = overlay.querySelector('.loading-text');
+        if (text) text.textContent = message;
+        overlay.style.display = 'flex';
+    };
+    
+    window.hideLoading = function() {
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'none';
+    };
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

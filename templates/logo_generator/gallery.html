@@ -1,0 +1,161 @@
+{% extends 'logo_generator/base.html' %}
+{% load static %}
+
+{% block title %}Logo Gallery - AI LogoMaker{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-images text-primary"></i> Logo Gallery
+        </h1>
+        <p class="lead text-muted">Explore amazing logos created by our AI technology</p>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search logos...">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <select class="form-select" id="styleFilter">
+                <option value="">All Styles</option>
+                <option value="modern">Modern</option>
+                <option value="vintage">Vintage</option>
+                <option value="minimalist">Minimalist</option>
+                <option value="corporate">Corporate</option>
+                <option value="creative">Creative</option>
+                <option value="tech">Technology</option>
+                <option value="elegant">Elegant</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row g-4" id="logoGallery">
+        {% for logo in logos %}
+        <div class="col-6 col-md-4 col-lg-3 logo-item" 
+             data-style="{{ logo.request.style }}" 
+             data-company="{{ logo.request.company_name|lower }}">
+            <div class="card h-100 shadow-sm logo-card">
+                <div class="position-relative">
+                    <img src="{{ logo.image.url }}" class="card-img-top" alt="Logo for {{ logo.request.company_name }}">
+                    <div class="logo-overlay">
+                        <div class="logo-actions">
+                            <button class="btn btn-light btn-sm" onclick="viewLogo('{{ logo.image.url }}', '{{ logo.request.company_name }}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <a href="{% url 'download_logo' logo.id %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <h6 class="card-title mb-1">{{ logo.request.company_name }}</h6>
+                    <small class="text-muted">
+                        <i class="fas fa-palette"></i> {{ logo.request.get_style_display }}
+                        <br>
+                        <i class="fas fa-calendar"></i> {{ logo.created_at|date:"M d, Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <div class="py-5">
+                <i class="fas fa-image fa-5x text-muted mb-3"></i>
+                <h3 class="text-muted">No logos yet</h3>
+                <p class="text-muted">Be the first to create a logo!</p>
+                <a href="{% url 'generate_logo' %}" class="btn btn-primary">
+                    <i class="fas fa-magic"></i> Generate Logo
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if logos %}
+    <div class="text-center mt-5">
+        <button class="btn btn-outline-primary" id="loadMoreBtn">
+            <i class="fas fa-plus"></i> Load More Logos
+        </button>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Logo Modal -->
+<div class="modal fade" id="logoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoModalTitle">Logo Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="logoModalImage" src="" class="img-fluid" alt="Logo Preview">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="downloadModalBtn">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function() {
+    filterLogos();
+});
+
+document.getElementById('styleFilter').addEventListener('change', function() {
+    filterLogos();
+});
+
+function filterLogos() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const styleFilter = document.getElementById('styleFilter').value;
+    const logoItems = document.querySelectorAll('.logo-item');
+    
+    logoItems.forEach(item => {
+        const company = item.dataset.company;
+        const style = item.dataset.style;
+        
+        const matchesSearch = company.includes(searchTerm);
+        const matchesStyle = !styleFilter || style === styleFilter;
+        
+        if (matchesSearch && matchesStyle) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function viewLogo(imageUrl, companyName) {
+    document.getElementById('logoModalImage').src = imageUrl;
+    document.getElementById('logoModalTitle').textContent = `Logo for ${companyName}`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('logoModal'));
+    modal.show();
+}
+
+// Add hover effects
+document.querySelectorAll('.logo-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.transition = 'transform 0.3s ease';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+</script>
+{% endblock %}

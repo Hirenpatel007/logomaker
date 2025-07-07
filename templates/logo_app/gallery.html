@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Logo Gallery - AI LogoMaker Pro{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                AI-Generated Logo Gallery
+            </h1>
+            <p class="text-xl text-gray-600">
+                Explore thousands of professional logos created by our AI
+            </p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                    <input type="text" placeholder="Search logos..." 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Industry</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">All Industries</option>
+                        <option value="technology">Technology</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="finance">Finance</option>
+                        <option value="retail">Retail</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Style</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">All Styles</option>
+                        <option value="modern">Modern</option>
+                        <option value="vintage">Vintage</option>
+                        <option value="creative">Creative</option>
+                        <option value="corporate">Corporate</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="newest">Newest First</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Sample Logo Items -->
+            {% for i in "123456789012345678901234" %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="aspect-square bg-gradient-to-br from-blue-{{ forloop.counter|add:2 }}00 to-purple-{{ forloop.counter|add:3 }}00 flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">
+                        {% cycle "TechCorp" "Creative Hub" "Modern Co" "Innovation" "Digital Pro" "Future AI" "Brand Studio" "Design Lab" %}
+                    </span>
+                </div>
+                
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-900 mb-1">
+                        {% cycle "TechCorp Solutions" "Creative Hub Studio" "Modern Company" "Innovation Labs" "Digital Pro Agency" "Future AI Systems" "Brand Studio Co" "Design Lab Inc" %}
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-2">
+                        {% cycle "Technology" "Creative" "Corporate" "Tech" "Digital" "AI" "Branding" "Design" %}
+                    </p>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-sm text-gray-500 ml-1">({{ forloop.counter|add:10 }})</span>
+                        </div>
+                        
+                        <div class="flex space-x-2">
+                            <button class="text-gray-400 hover:text-red-500 transition-colors">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-12">
+            <nav class="flex items-center space-x-2">
+                <button class="px-3 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <button class="px-3 py-2 bg-blue-600 text-white rounded-md">1</button>
+                <button class="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">2</button>
+                <button class="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">3</button>
+                <span class="px-3 py-2 text-gray-500">...</span>
+                <button class="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">10</button>
+                
+                <button class="px-3 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center mt-16">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+                <h2 class="text-3xl font-bold mb-4">Ready to Create Your Own?</h2>
+                <p class="text-xl mb-6">Join thousands of businesses who trust our AI logo generator</p>
+                <a href="{% url 'logo_app:generate' %}" 
+                   class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-lg hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-magic mr-2"></i>
+                    Generate Your Logo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

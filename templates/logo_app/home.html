@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block title %}AI LogoMaker Pro - Professional Logo Generator{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white overflow-hidden min-h-screen flex items-center">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Hero Content -->
+            <div class="text-center lg:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Create Professional
+                    <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                        AI Logos
+                    </span>
+                    in Minutes
+                </h1>
+                
+                <p class="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
+                    Revolutionary logo generator using advanced Stable Diffusion AI. 
+                    <strong class="text-white">Unlimited free generation</strong> with professional quality results.
+                </p>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-bold text-yellow-400">50K+</div>
+                        <div class="text-sm text-blue-200">Logos Created</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-bold text-green-400">100%</div>
+                        <div class="text-sm text-blue-200">Free AI</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-bold text-purple-400">₹50</div>
+                        <div class="text-sm text-blue-200">Only</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-bold text-pink-400">24/7</div>
+                        <div class="text-sm text-blue-200">Available</div>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="{% url 'logo_app:generate' %}" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold rounded-lg hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-magic mr-2"></i>
+                        Generate Logo Now
+                    </a>
+                    <a href="{% url 'logo_app:gallery' %}" class="inline-flex items-center justify-center px-8 py-4 bg-white bg-opacity-20 text-white font-semibold rounded-lg hover:bg-opacity-30 backdrop-blur-sm transition-all duration-200 border border-white border-opacity-30">
+                        <i class="fas fa-images mr-2"></i>
+                        View Gallery
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hero Visual -->
+            <div class="relative">
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-6 border border-white border-opacity-20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                        </div>
+                        <span class="text-sm text-white font-medium">AI Logo Generator</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 text-yellow-400">
+                                <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+                                <span class="text-sm">Analyzing brand requirements...</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-blue-200">
+                                <div class="w-2 h-2 rounded-full bg-blue-300"></div>
+                                <span class="text-sm">AI neural networks processing...</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-blue-200">
+                                <div class="w-2 h-2 rounded-full bg-blue-300"></div>
+                                <span class="text-sm">Generating creative variations...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3 mt-6">
+                            <div class="aspect-square bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                                TechCorp
+                            </div>
+                            <div class="aspect-square bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                                Creative
+                            </div>
+                            <div class="aspect-square bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                                Modern Co
+                            </div>
+                            <div class="aspect-square bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                                Innovation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Why Choose Our AI LogoMaker?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Revolutionary technology meets professional design. Created by 
+                <strong class="text-blue-600">Hiren Patel</strong> from Gujarat, India 🇮🇳
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-robot text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Stable Diffusion AI</h3>
+                <p class="text-gray-600">
+                    Revolutionary AI technology that creates professional logos with unlimited free generation.
+                </p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-bolt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Lightning Fast</h3>
+                <p class="text-gray-600">
+                    Generate multiple logo variations in under 30 seconds with optimized AI infrastructure.
+                </p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-gem text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Professional Quality</h3>
+                <p class="text-gray-600">
+                    High-resolution logos suitable for all commercial use. From business cards to billboards.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Simple, Transparent Pricing
+        </h2>
+        <p class="text-xl text-blue-100 mb-12">
+            Professional logos at unbeatable prices. No subscriptions, no hidden fees.
+        </p>
+        
+        <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
+            <div class="mb-6">
+                <span class="text-6xl font-bold">₹50</span>
+                <span class="text-xl text-blue-200 ml-2">only</span>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6">Complete Logo Package</h3>
+            
+            <div class="space-y-3 mb-8 text-left max-w-md mx-auto">
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>4-8 AI-generated logo variations</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>High-resolution PNG files</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>Commercial usage rights</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>Instant download</span>
+                </div>
+            </div>
+            
+            <a href="{% url 'logo_app:generate' %}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold rounded-lg hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                <i class="fas fa-magic mr-2"></i>
+                Start Creating Now
+            </a>
+            
+            <div class="mt-6 text-sm text-blue-200">
+                <p>Pay via UPI: <strong class="text-white">9537272403@paytm</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="py-20 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Meet the Creator
+            </h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Direct support from <strong class="text-white">Hiren Patel</strong>, 
+                the mastermind behind this revolutionary AI technology.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user text-white text-xl"></i>
+                    </div>
+                    <div class="font-semibold">Hiren Patel</div>
+                    <div class="text-gray-400 text-sm">Creator & Developer</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-white text-xl"></i>
+                    </div>
+                    <div class="font-semibold">+91 9537272403</div>
+                    <div class="text-gray-400 text-sm">WhatsApp & Call</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                    </div>
+                    <div class="font-semibold">Kathlal, Gujarat</div>
+                    <div class="text-gray-400 text-sm">India 🇮🇳</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-yellow-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-credit-card text-white text-xl"></i>
+                    </div>
+                    <div class="font-semibold">9537272403@paytm</div>
+                    <div class="text-gray-400 text-sm">UPI Payment</div>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <a href="{% url 'logo_app:generate' %}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200">
+                    <i class="fas fa-magic mr-2"></i>
+                    Generate Your Logo Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

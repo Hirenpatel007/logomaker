@@ -1,0 +1,199 @@
+{% extends 'logo_generator/base.html' %}
+{% load static %}
+
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-body text-center p-4">
+                    <div class="profile-avatar mb-3">
+                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+                    </div>
+                    <h3>{{ user.username }}</h3>
+                    <p class="text-muted">{{ user.email }}</p>
+                    
+                    <div class="profile-stats mt-4">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="stat-box">
+                                    <h4 class="text-primary">{{ logos.count }}</h4>
+                                    <small class="text-muted">Logos Created</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-box">
+                                    <h4 class="text-success">{{ profile.credits }}</h4>
+                                    <small class="text-muted">Credits Left</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p class="small text-muted">
+                            <i class="fas fa-calendar"></i> 
+                            Member since {{ user.date_joined|date:"M Y" }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow mt-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-bar"></i> Quick Stats</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted">Most Used Style</small>
+                        <div class="progress">
+                            <div class="progress-bar bg-primary" style="width: 60%"></div>
+                        </div>
+                        <small>Modern (60%)</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">Favorite Colors</small>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" style="width: 40%"></div>
+                        </div>
+                        <small>Blue Theme (40%)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5><i class="fas fa-images"></i> My Logos</h5>
+                    <a href="{% url 'generate_logo' %}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Create New
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if logos %}
+                    <div class="row g-3">
+                        {% for logo in logos %}
+                        <div class="col-6 col-md-4">
+                            <div class="logo-item position-relative">
+                                <img src="{{ logo.image.url }}" class="img-fluid rounded shadow-sm" 
+                                     alt="Logo for {{ logo.request.company_name }}">
+                                <div class="logo-overlay">
+                                    <div class="logo-actions">
+                                        <button class="btn btn-light btn-sm" 
+                                                onclick="viewLogo('{{ logo.image.url }}', '{{ logo.request.company_name }}')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <a href="{% url 'download_logo' logo.id %}" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <h6 class="mb-1">{{ logo.request.company_name }}</h6>
+                                    <small class="text-muted">
+                                        {{ logo.request.get_style_display }} • 
+                                        {{ logo.created_at|date:"M d" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline-primary" id="loadMoreLogos">
+                            <i class="fas fa-plus"></i> Load More
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-image fa-4x text-muted mb-3"></i>
+                        <h4 class="text-muted">No logos yet</h4>
+                        <p class="text-muted">Create your first AI-generated logo!</p>
+                        <a href="{% url 'generate_logo' %}" class="btn btn-primary">
+                            <i class="fas fa-magic"></i> Generate Logo
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card shadow mt-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-history"></i> Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="activity-timeline">
+                        {% for logo in logos|slice:":5" %}
+                        <div class="activity-item d-flex align-items-center mb-3">
+                            <div class="activity-icon me-3">
+                                <i class="fas fa-magic text-primary"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="mb-1">
+                                    Generated logo for <strong>{{ logo.request.company_name }}</strong>
+                                </p>
+                                <small class="text-muted">
+                                    {{ logo.created_at|timesince }} ago
+                                </small>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center">No recent activity</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logo Modal -->
+<div class="modal fade" id="logoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoModalTitle">Logo Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="logoModalImage" src="" class="img-fluid" alt="Logo Preview">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="downloadModalBtn">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function viewLogo(imageUrl, companyName) {
+    document.getElementById('logoModalImage').src = imageUrl;
+    document.getElementById('logoModalTitle').textContent = `Logo for ${companyName}`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('logoModal'));
+    modal.show();
+}
+
+// Add hover effects to logo items
+document.querySelectorAll('.logo-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.3s ease';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+    });
+});
+</script>
+{% endblock %}

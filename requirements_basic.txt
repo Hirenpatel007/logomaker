@@ -1,0 +1,12 @@
+# AI LogoMaker - Basic Dependencies
+# Created by Hiren Patel
+
+# Core Django (minimum required)
+Django==5.2.3
+
+# Image Processing (essential)
+Pillow==10.1.0
+numpy==1.24.3
+
+# Basic data handling
+pandas==2.1.4

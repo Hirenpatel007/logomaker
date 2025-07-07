@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Generate AI Logo - LogoMaker Pro{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Create Your Perfect Logo
+            </h1>
+            <p class="text-xl text-gray-600">
+                Tell us about your brand and let our AI create amazing logos for you
+            </p>
+        </div>
+
+        <!-- Generation Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <form id="logoForm" class="space-y-8">
+                <!-- Business Information -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-building text-blue-600 mr-3"></i>
+                        Business Information
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Business Name *
+                            </label>
+                            <input type="text" id="businessName" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                   placeholder="Enter your business name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Industry *
+                            </label>
+                            <select id="industry" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Select your industry</option>
+                                <option value="technology">Technology & Software</option>
+                                <option value="healthcare">Healthcare & Medical</option>
+                                <option value="finance">Finance & Banking</option>
+                                <option value="education">Education & Training</option>
+                                <option value="retail">Retail & E-commerce</option>
+                                <option value="food">Food & Restaurant</option>
+                                <option value="real-estate">Real Estate</option>
+                                <option value="consulting">Consulting & Services</option>
+                                <option value="creative">Creative & Design</option>
+                                <option value="fitness">Fitness & Sports</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Business Description
+                        </label>
+                        <textarea id="businessDescription" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  placeholder="Describe your business, values, and what makes you unique..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Design Preferences -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-palette text-purple-600 mr-3"></i>
+                        Design Preferences
+                    </h2>
+                    
+                    <!-- Style Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-4">
+                            Logo Style *
+                        </label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="modern">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Modern</h4>
+                                <p class="text-sm text-gray-500 text-center">Clean, contemporary</p>
+                            </div>
+                            
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="vintage">
+                                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Vintage</h4>
+                                <p class="text-sm text-gray-500 text-center">Classic, timeless</p>
+                            </div>
+                            
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="creative">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Creative</h4>
+                                <p class="text-sm text-gray-500 text-center">Artistic, unique</p>
+                            </div>
+                            
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="corporate">
+                                <div class="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Corporate</h4>
+                                <p class="text-sm text-gray-500 text-center">Professional, trustworthy</p>
+                            </div>
+                            
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="tech">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Tech</h4>
+                                <p class="text-sm text-gray-500 text-center">Futuristic, digital</p>
+                            </div>
+                            
+                            <div class="style-option border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-colors" data-style="elegant">
+                                <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg mb-3 mx-auto"></div>
+                                <h4 class="font-semibold text-center">Elegant</h4>
+                                <p class="text-sm text-gray-500 text-center">Sophisticated, luxury</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Color Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-4">
+                            Color Scheme *
+                        </label>
+                        <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
+                            <div class="color-option w-12 h-12 bg-blue-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="blue"></div>
+                            <div class="color-option w-12 h-12 bg-red-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="red"></div>
+                            <div class="color-option w-12 h-12 bg-green-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="green"></div>
+                            <div class="color-option w-12 h-12 bg-purple-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="purple"></div>
+                            <div class="color-option w-12 h-12 bg-orange-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="orange"></div>
+                            <div class="color-option w-12 h-12 bg-pink-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="pink"></div>
+                            <div class="color-option w-12 h-12 bg-gray-800 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="black"></div>
+                            <div class="color-option w-12 h-12 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-400" data-color="rainbow"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Options -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-4">
+                            Number of Variations
+                        </label>
+                        <select id="variationsCount" class="w-full md:w-48 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="4">4 variations</option>
+                            <option value="6">6 variations</option>
+                            <option value="8">8 variations</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Custom Requirements (Optional)
+                        </label>
+                        <textarea id="customPrompt" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  placeholder="Any specific design elements or ideas you want included..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="text-center pt-8">
+                    <button type="submit" id="generateBtn" 
+                            class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-magic mr-2"></i>
+                        Generate AI Logos
+                    </button>
+                    
+                    <p class="text-sm text-gray-500 mt-4">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Generation takes 30-60 seconds. Price: ₹50 for complete package
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section (Hidden initially) -->
+        <div id="resultsSection" class="mt-12 hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6 text-center">
+                    Your AI-Generated Logos
+                </h2>
+                
+                <div id="logoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Generated logos will appear here -->
+                </div>
+                
+                <div class="text-center mt-8">
+                    <div class="bg-blue-50 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-blue-900 mb-2">
+                            Complete Your Purchase - ₹50
+                        </h3>
+                        <p class="text-blue-700 mb-4">
+                            Pay via UPI to download all logo files in high resolution
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <strong>UPI ID:</strong> 9537272403@paytm
+                        </div>
+                    </div>
+                    
+                    <button id="paymentBtn" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Pay ₹50 & Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let selectedStyle = '';
+    let selectedColor = '';
+    
+    // Style selection
+    document.querySelectorAll('.style-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.style-option').forEach(o => o.classList.remove('border-blue-500', 'bg-blue-50'));
+            this.classList.add('border-blue-500', 'bg-blue-50');
+            selectedStyle = this.dataset.style;
+        });
+    });
+    
+    // Color selection
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.color-option').forEach(o => o.classList.remove('ring-4', 'ring-gray-400'));
+            this.classList.add('ring-4', 'ring-gray-400');
+            selectedColor = this.dataset.color;
+        });
+    });
+    
+    // Form submission
+    document.getElementById('logoForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const businessName = document.getElementById('businessName').value;
+        const industry = document.getElementById('industry').value;
+        const businessDescription = document.getElementById('businessDescription').value;
+        const variationsCount = document.getElementById('variationsCount').value;
+        const customPrompt = document.getElementById('customPrompt').value;
+        
+        if (!businessName || !industry || !selectedStyle || !selectedColor) {
+            alert('Please fill in all required fields and select style and color.');
+            return;
+        }
+        
+        // Show loading
+        const generateBtn = document.getElementById('generateBtn');
+        const originalText = generateBtn.innerHTML;
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI is generating...';
+        generateBtn.disabled = true;
+        
+        try {
+            // Simulate API call (replace with actual API call)
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            // Show results
+            showResults();
+            
+        } catch (error) {
+            alert('Error generating logos. Please try again.');
+        } finally {
+            generateBtn.innerHTML = originalText;
+            generateBtn.disabled = false;
+        }
+    });
+    
+    function showResults() {
+        const resultsSection = document.getElementById('resultsSection');
+        const logoGrid = document.getElementById('logoGrid');
+        
+        // Clear previous results
+        logoGrid.innerHTML = '';
+        
+        // Generate sample logos (replace with actual generated logos)
+        const variations = parseInt(document.getElementById('variationsCount').value);
+        for (let i = 1; i <= variations; i++) {
+            const logoItem = document.createElement('div');
+            logoItem.className = 'bg-gray-100 rounded-lg p-6 text-center';
+            logoItem.innerHTML = `
+                <div class="aspect-square bg-gradient-to-br from-${selectedColor}-500 to-${selectedColor}-700 rounded-lg flex items-center justify-center mb-4">
+                    <span class="text-white font-bold text-lg">${document.getElementById('businessName').value}</span>
+                </div>
+                <h4 class="font-semibold">Variation ${i}</h4>
+                <p class="text-sm text-gray-500">${selectedStyle} style</p>
+            `;
+            logoGrid.appendChild(logoItem);
+        }
+        
+        resultsSection.classList.remove('hidden');
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Payment button
+    document.getElementById('paymentBtn').addEventListener('click', function() {
+        alert('Redirecting to payment... UPI ID: 9537272403@paytm');
+    });
+});
+</script>
+{% endblock %}
