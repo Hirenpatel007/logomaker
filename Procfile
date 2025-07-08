@@ -1,1 +1,1 @@
-web: gunicorn logomaker.wsgi 
+web: gunicorn logomaker.wsgi:application 
