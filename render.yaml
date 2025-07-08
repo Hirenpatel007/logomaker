@@ -2,7 +2,7 @@ services:
   - type: web
     name: logomaker
     env: python
-    runtime: python-3.10
+    runtime: python-3.11
     startCommand: "gunicorn logomaker.wsgi:application"
     plan: free
     envVars:
