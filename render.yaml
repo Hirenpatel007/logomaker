@@ -2,8 +2,9 @@ services:
   - type: web
     name: logomaker
     env: python
+    runtime: python-3.10
     buildCommand: "./build.sh"
-    startCommand: "gunicorn logomaker.wsgi:application"
+    startCommand: "gunicorn logomaker.wsgi:application --bind 0.0.0.0:$PORT"
     plan: free
     envVars:
       - key: DEBUG
@@ -12,3 +13,5 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
+      - key: PYTHON_VERSION
+        value: 3.10.12
