@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: logomaker
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn logomaker.wsgi:application"
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
