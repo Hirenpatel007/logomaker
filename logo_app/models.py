@@ -168,6 +168,7 @@ class GeneratedLogo(models.Model):
         return f"Logo {self.id} for {self.request.business_name}"
     
     def get_absolute_url(self):
+        from django.urls import reverse
         return reverse('logo_app:logo_detail', kwargs={'logo_id': self.id})
     
     def increment_view(self):
@@ -177,6 +178,12 @@ class GeneratedLogo(models.Model):
     def increment_download(self):
         self.download_count += 1
         self.save(update_fields=['download_count'])
+
+# Import template models
+from .models_templates import (
+    TemplateCategory, LogoTemplate, TemplateRating, 
+    TemplateCustomization, TemplateCollection
+)
 
 class PromptHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

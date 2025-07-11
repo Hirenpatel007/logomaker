@@ -2,21 +2,225 @@
 
 {% block title %}Generate AI Logo - LogoMaker Pro{% endblock %}
 
+{% block extra_head %}
+<style>
+    .template-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .template-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .template-card.selected {
+        border: 3px solid #3B82F6;
+        background: rgba(59, 130, 246, 0.05);
+    }
+    
+    .color-picker {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    
+    .color-picker:hover {
+        transform: scale(1.1);
+    }
+    
+    .color-picker.selected {
+        border-color: #3B82F6;
+        transform: scale(1.1);
+    }
+    
+    .step-indicator {
+        position: relative;
+    }
+    
+    .step-indicator.active::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -20px;
+        width: 10px;
+        height: 10px;
+        background: #3B82F6;
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="min-h-screen bg-gray-50 py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 floating-animation">
                 Create Your Perfect Logo
             </h1>
-            <p class="text-xl text-gray-600">
-                Tell us about your brand and let our AI create amazing logos for you
+            <p class="text-xl text-gray-600 glassmorphism p-4 inline-block rounded-lg">
+                Choose a template or let our AI create amazing logos for you
             </p>
         </div>
 
-        <!-- Generation Form -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
+        <!-- Progress Steps -->
+        <div class="flex justify-center mb-12">
+            <div class="flex items-center space-x-8">
+                <div class="step-indicator active flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                    <span class="text-gray-700 font-medium">Choose Style</span>
+                </div>
+                <div class="w-12 h-0.5 bg-gray-300"></div>
+                <div class="step-indicator flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                    <span class="text-gray-500">Business Info</span>
+                </div>
+                <div class="w-12 h-0.5 bg-gray-300"></div>
+                <div class="step-indicator flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                    <span class="text-gray-500">Generate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generation Options -->
+        <div class="glassmorphism rounded-2xl p-8 mb-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">How would you like to create your logo?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- AI Generation Option -->
+                    <div class="option-card bg-white rounded-xl p-6 border-2 border-transparent hover:border-blue-500 cursor-pointer transition-all duration-300 hover-lift"
+                         onclick="selectOption('ai')">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-robot text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">AI Generation</h3>
+                            <p class="text-gray-600">Let our AI create unique logos based on your description</p>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                    <i class="fas fa-star mr-1"></i>Recommended
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Template Option -->
+                    <div class="option-card bg-white rounded-xl p-6 border-2 border-transparent hover:border-purple-500 cursor-pointer transition-all duration-300 hover-lift"
+                         onclick="selectOption('template')">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-layer-group text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Professional Templates</h3>
+                            <p class="text-gray-600">Choose from 100+ professional templates and customize</p>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                    <i class="fas fa-bolt mr-1"></i>Quick Start
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Selection (Hidden by default) -->
+        <div id="templateSection" class="glassmorphism rounded-2xl p-8 mb-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <i class="fas fa-layer-group text-purple-600 mr-3"></i>
+                Choose a Template
+            </h2>
+            
+            <!-- Template Categories -->
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button class="template-category-btn active px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border-2 border-blue-200" 
+                        data-category="all">All Templates</button>
+                <button class="template-category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-2 border-transparent hover:border-gray-300" 
+                        data-category="technology">Technology</button>
+                <button class="template-category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-2 border-transparent hover:border-gray-300" 
+                        data-category="creative">Creative</button>
+                <button class="template-category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-2 border-transparent hover:border-gray-300" 
+                        data-category="corporate">Corporate</button>
+                <button class="template-category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-2 border-transparent hover:border-gray-300" 
+                        data-category="healthcare">Healthcare</button>
+                <button class="template-category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-2 border-transparent hover:border-gray-300" 
+                        data-category="food">Food & Restaurant</button>
+            </div>
+            
+            <!-- Template Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
+                <!-- Template cards will be loaded here -->
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="modern-tech">
+                    <div class="aspect-square bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Modern Tech</h4>
+                        <p class="text-xs text-gray-500">Technology</p>
+                    </div>
+                </div>
+                
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="creative-studio">
+                    <div class="aspect-square bg-gradient-to-br from-purple-400 to-pink-600 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-palette text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Creative Studio</h4>
+                        <p class="text-xs text-gray-500">Creative</p>
+                    </div>
+                </div>
+                
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="corporate-shield">
+                    <div class="aspect-square bg-gradient-to-br from-gray-500 to-gray-700 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Corporate Shield</h4>
+                        <p class="text-xs text-gray-500">Corporate</p>
+                    </div>
+                </div>
+                
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="health-cross">
+                    <div class="aspect-square bg-gradient-to-br from-green-400 to-green-600 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-plus text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Health Cross</h4>
+                        <p class="text-xs text-gray-500">Healthcare</p>
+                    </div>
+                </div>
+                
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="food-emblem">
+                    <div class="aspect-square bg-gradient-to-br from-orange-400 to-red-500 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-utensils text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Food Emblem</h4>
+                        <p class="text-xs text-gray-500">Restaurant</p>
+                    </div>
+                </div>
+                
+                <div class="template-card bg-white rounded-lg p-4 border-2 border-gray-200" data-template="minimal-text">
+                    <div class="aspect-square bg-gradient-to-br from-indigo-400 to-purple-600 rounded-lg mb-3 flex items-center justify-center">
+                        <i class="fas fa-font text-white text-2xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-900">Minimal Text</h4>
+                        <p class="text-xs text-gray-500">Minimalist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Information Form -->
+        <div id="businessForm" class="glassmorphism rounded-2xl p-8">
             <form id="logoForm" class="space-y-8">
                 <!-- Business Information -->
                 <div class="space-y-6">
@@ -24,6 +228,211 @@
                         <i class="fas fa-building text-blue-600 mr-3"></i>
                         Business Information
                     </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Business Name *
+                            </label>
+                            <input type="text" id="businessName" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                   placeholder="Enter your business name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Industry *
+                            </label>
+                            <select id="industry" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <option value="">Select your industry</option>
+                                <option value="technology">Technology & Software</option>
+                                <option value="healthcare">Healthcare & Medical</option>
+                                <option value="finance">Finance & Banking</option>
+                                <option value="education">Education & Training</option>
+                                <option value="retail">Retail & E-commerce</option>
+                                <option value="food">Food & Restaurant</option>
+                                <option value="realestate">Real Estate</option>
+                                <option value="consulting">Consulting & Services</option>
+                                <option value="creative">Creative & Design</option>
+                                <option value="fitness">Fitness & Sports</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Business Description
+                        </label>
+                        <textarea id="businessDescription" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                  placeholder="Describe your business, values, and what makes you unique..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Smart Color Suggestions -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-palette text-purple-600 mr-3"></i>
+                        Smart Color Suggestions
+                    </h2>
+                    
+                    <div id="colorSuggestions" class="hidden">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-lightbulb text-blue-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-sm font-medium text-blue-900">AI Color Recommendations</h4>
+                                    <p class="text-sm text-blue-700" id="colorRecommendationText">Based on your industry and business description</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Primary Colors</h4>
+                                <div class="flex flex-wrap gap-2" id="primaryColors">
+                                    <!-- Dynamic color suggestions -->
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Secondary Colors</h4>
+                                <div class="flex flex-wrap gap-2" id="secondaryColors">
+                                    <!-- Dynamic color suggestions -->
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Accent Colors</h4>
+                                <div class="flex flex-wrap gap-2" id="accentColors">
+                                    <!-- Dynamic color suggestions -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Manual Color Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            Or choose your preferred color scheme
+                        </label>
+                        <div class="grid grid-cols-4 md:grid-cols-7 gap-3">
+                            <div class="color-picker selected" style="background: #3B82F6;" data-color="blue" title="Professional Blue"></div>
+                            <div class="color-picker" style="background: #EF4444;" data-color="red" title="Energetic Red"></div>
+                            <div class="color-picker" style="background: #10B981;" data-color="green" title="Growth Green"></div>
+                            <div class="color-picker" style="background: #8B5CF6;" data-color="purple" title="Creative Purple"></div>
+                            <div class="color-picker" style="background: #F59E0B;" data-color="orange" title="Warm Orange"></div>
+                            <div class="color-picker" style="background: #374151;" data-color="black" title="Elegant Black"></div>
+                            <div class="color-picker" style="background: linear-gradient(45deg, #EF4444, #F59E0B, #10B981, #3B82F6, #8B5CF6);" data-color="colorful" title="Colorful Mix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Preferences -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-paint-brush text-green-600 mr-3"></i>
+                        Design Preferences
+                    </h2>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            Logo Style *
+                        </label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="modern">
+                                <div class="text-center">
+                                    <i class="fas fa-cube text-2xl text-blue-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Modern</h4>
+                                    <p class="text-xs text-gray-500">Clean, contemporary</p>
+                                </div>
+                            </div>
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="vintage">
+                                <div class="text-center">
+                                    <i class="fas fa-crown text-2xl text-yellow-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Vintage</h4>
+                                    <p class="text-xs text-gray-500">Classic, timeless</p>
+                                </div>
+                            </div>
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="creative">
+                                <div class="text-center">
+                                    <i class="fas fa-palette text-2xl text-purple-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Creative</h4>
+                                    <p class="text-xs text-gray-500">Artistic, unique</p>
+                                </div>
+                            </div>
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="corporate">
+                                <div class="text-center">
+                                    <i class="fas fa-briefcase text-2xl text-gray-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Corporate</h4>
+                                    <p class="text-xs text-gray-500">Professional, trustworthy</p>
+                                </div>
+                            </div>
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="tech">
+                                <div class="text-center">
+                                    <i class="fas fa-microchip text-2xl text-indigo-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Tech</h4>
+                                    <p class="text-xs text-gray-500">Futuristic, digital</p>
+                                </div>
+                            </div>
+                            <div class="style-option bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all hover-lift" data-style="elegant">
+                                <div class="text-center">
+                                    <i class="fas fa-gem text-2xl text-pink-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-900">Elegant</h4>
+                                    <p class="text-xs text-gray-500">Sophisticated, luxury</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Number of Variations
+                            </label>
+                            <select id="variationsCount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="4">4 variations</option>
+                                <option value="6">6 variations</option>
+                                <option value="8">8 variations</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                AI Provider
+                            </label>
+                            <select id="aiProvider" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="auto">Auto-Select Best</option>
+                                <option value="dalle">OpenAI DALL-E 3</option>
+                                <option value="stability">Stability AI</option>
+                                <option value="huggingface">Hugging Face</option>
+                                <option value="multi">Multi-Provider Mix</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Custom Requirements (Optional)
+                        </label>
+                        <textarea id="customRequirements" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  placeholder="Any specific design elements or ideas you want included..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Generate Button -->
+                <div class="text-center pt-6">
+                    <button type="submit" id="generateBtn" 
+                            class="inline-flex items-center justify-center px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover-lift">
+                        <i class="fas fa-magic mr-3"></i>
+                        Generate AI Logos
+                    </button>
+                    <p class="text-sm text-gray-600 mt-4">
+                        Generation takes 30-60 seconds. Price: ₹50 for complete package
+                    </p>
+                </div>
+            </form>
+        </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>

@@ -83,6 +83,9 @@
         }
     </script>
     
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
@@ -149,6 +152,51 @@
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #2563eb;
+        }
+        
+        /* 3D Scene Styles */
+        .hero-3d-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+        }
+        
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .particle-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .logo-preview-3d {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
         }
     </style>
     
@@ -428,6 +476,9 @@
             });
         }, 5000);
     </script>
+    
+    <!-- 3D Components JavaScript -->
+    <script src="{% load static %}{% static 'js/three-components.js' %}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>
